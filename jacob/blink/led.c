@@ -5,7 +5,7 @@ unsigned char red_on = 0, green_on = 0;
 unsigned char led_changed = 0;
 
 static char redVal[] = {0, LED_RED}, greenVal[] = {0, LED_GREEN};
-
+static char counter = 0;
 
 void led_init()
 {
@@ -20,11 +20,14 @@ void led_init()
 void led_update()
 {
   if (led_changed) {
-      // Lookup for the flags. These are a 1 if the LED is on, 0 otherwise.
-      // We OR these to combine them into a single output char
-    char ledFlags = redVal[red_on] | greenVal[green_on];
+      // We want to count from 0 to 3, so we set up a counter for it
+    counter += 1;
+    if (counter > 3) {
+      counter = 0;
+    }
+      // Use the counter to calculate the flags
+    char ledFlags = ((counter & 2) << 5) | (counter&1);
       // Clear bit for off LEDs
-    //P1OUT &= (0xff^LEDS) | ledFlags;
     P1OUT = 0;
       // Set the bit for on LEDs
     P1OUT |= ledFlags;
