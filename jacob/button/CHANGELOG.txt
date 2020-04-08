@@ -1,5 +1,5 @@
 
 2020 March 30 - Began commenting original code to try to understand it
 2020 March 30 - Migrated files to personal directory
-
-
+2020 April 8  - Broke original code and reverted it all. Trying again
+2020 April 8  - Changed original code to toggle between RED and GREEN light

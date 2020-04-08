@@ -4,28 +4,23 @@
 
 void led_init()
 {
-  // Set output to LEDs
-  P1DIR |= LEDS;
-  // Set state to 1 to we can update in the next method
+  P1DIR |= LEDS;		// bits attached to leds are output
   switch_state_changed = 1;
-  // Update the LEDs
   led_update();
 }
 
+char state = 1; // Setting this to 1 makes the first state GREEN
 void led_update(){
-  // Update LEDs if needed
   if (switch_state_changed) {
-    // Default to all LEDS off
-    char ledFlags = 0;
-    // Set LED flags based on the button's state.
-    // Recall that the state is reversed, so "down" means unpressed
-    ledFlags |= switch_state_down ? LED_GREEN : LED_RED;
-    // Clear bits for off LEDs
-    P1OUT = 0;
-    // Set bits for on LEDs
-    P1OUT |= ledFlags;
+    state ^= 1; // Using a bitwise OR to change between the two states
+    char ledFlags = 0; /* by default, no LEDs on */
+
+    ledFlags |= state ? LED_GREEN : 0; // Manual Control for GREEN led
+    ledFlags |= state ? 0 : LED_RED;// Maual Control for RED led
+
+    P1OUT &= (0xff - LEDS) | ledFlags; // clear bits for off leds
+    P1OUT |= ledFlags;         // set bits for on leds
   }
-  // Update Complete
   switch_state_changed = 0;
 }
 

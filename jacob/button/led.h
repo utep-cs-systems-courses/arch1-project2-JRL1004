@@ -1,4 +1,4 @@
-#ifndef led_included
+#ifndef led_included // This is a guard to ensure that we do not double-initialize this
 #define  led_included
 
 #include <msp430.h>

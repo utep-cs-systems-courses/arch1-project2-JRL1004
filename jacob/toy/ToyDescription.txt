@@ -1,0 +1,9 @@
+
+This toy is designed to allow for one to play one of two tunes. To switch
+between the tunes, the user should press the button along the long side of the
+MSP430. The lights at the bottom of the device will change to reflect which
+tune is being played using the following key:
+     * No Lights: Off
+     * Green Light: Tune 1
+     * Red Light: Tune 2
+This system operates using interupts and a timer to reduce power usage
