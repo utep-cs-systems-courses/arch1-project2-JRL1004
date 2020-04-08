@@ -1,5 +1,6 @@
 #include <msp430.h>
 #include "led.h"
+#include "led_s.h"
 #include "switches.h"
 
 void led_init()
@@ -24,11 +25,7 @@ void led_update(){
     }
     char ledFlags = 0; /* by default, no LEDs on */
 
-    switch (state) {
-      case 1: ledFlags |= LED_RED; break;
-      case 2: ledFlags |= LED_GREEN; break;
-      case 3: ledFlags |= LEDS;
-    }
+    ledFlags = asm_switch(state, ledFlags);
 
     P1OUT &= (0xff - LEDS) | ledFlags; // clear bits for off leds
     P1OUT |= ledFlags;         // set bits for on leds
