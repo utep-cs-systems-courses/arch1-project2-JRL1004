@@ -19,13 +19,13 @@ Designed Output:
 */
 void led_update(){
   if (switch_state_changed) {
-    static char state = 0
+    static unsigned int state = 0;
     if (state > 3) {
       state = 0;
     }
     char ledFlags = 0; /* by default, no LEDs on */
 
-    ledFlags = asm_switch(state, ledFlags);
+    ledFlags = swch(state, ledFlags, LED_RED, LED_GREEN);
 
     P1OUT &= (0xff - LEDS) | ledFlags; // clear bits for off leds
     P1OUT |= ledFlags;         // set bits for on leds
