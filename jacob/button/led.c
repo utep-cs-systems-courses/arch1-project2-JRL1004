@@ -16,9 +16,9 @@ Designed Output:
   2: G
   3: GR
 */
-char state = 0; // Setting this to 1 makes the first state GREEN
 void led_update(){
   if (switch_state_changed) {
+    static char state = 0
     if (state > 3) {
       state = 0;
     }
