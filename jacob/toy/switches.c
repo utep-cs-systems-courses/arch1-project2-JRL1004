@@ -30,7 +30,7 @@ switch_interrupt_handler()
 {
   char p1val = switch_update_interrupt_sense();
   switch_state_down = (p1val & SW1) ? 0 : 1; /* 0 when SW1 is up */
-  if (switch_state_down) // Only update on each button press
+  if (switch_state_down)
   {
     switch_state_changed = 1;
   }

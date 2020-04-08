@@ -9,17 +9,31 @@ void led_init()
   led_update();
 }
 
-char state = 1; // Setting this to 1 makes the first state GREEN
+/*
+Designed Output:
+  0: Both Off
+  1:  R
+  2: G
+  3: GR
+*/
+char state = 0; // Setting this to 1 makes the first state GREEN
 void led_update(){
   if (switch_state_changed) {
-    state ^= 1; // Using a bitwise OR to change between the two states
+    if (state > 3) {
+      state = 0;
+    }
     char ledFlags = 0; /* by default, no LEDs on */
 
-    ledFlags |= state ? LED_GREEN : 0; // Manual Control for GREEN led
-    ledFlags |= state ? 0 : LED_RED;// Maual Control for RED led
+    switch (state) {
+      case 1: ledFlags |= LED_RED; break;
+      case 2: ledFlags |= LED_GREEN; break;
+      case 3: ledFlags |= LEDS;
+    }
 
     P1OUT &= (0xff - LEDS) | ledFlags; // clear bits for off leds
     P1OUT |= ledFlags;         // set bits for on leds
+
+    state += 1; // Move to next state
   }
   switch_state_changed = 0;
 }
