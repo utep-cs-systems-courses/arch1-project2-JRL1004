@@ -16,7 +16,7 @@ swch:	;; R12 is state, R13 is ledFlags
 	
 	;; First check if we are in range and jump if not
 	cmp #4, r12
-	jnc default
+	jc default
 	
 	;;  Move index into JT
 	add r12, r12
@@ -38,7 +38,7 @@ case3:	bis r14, r13
 default:
 end:
 	mov r13, r12
-	pop r0
+	ret
 
 
 
